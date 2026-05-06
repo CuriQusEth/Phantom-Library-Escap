@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Courier Prime", ui-monospace, SFMono-Regular, monospace;
+  --font-serif: Georgia, "Times New Roman", Times, serif;
+  
+  --color-horror-bg: #0a0a0a;
+  --color-horror-wood: #1a0f0a;
+  --color-horror-paper: #d4c5a1;
+  --color-horror-blood: #8b0000;
+  --color-horror-cyan: #4a90e2;
+  --color-horror-phantom: rgba(74, 144, 226, 0.4);
+}
+
+body {
+  background-color: var(--color-horror-bg);
+  color: var(--color-horror-paper);
+  font-family: var(--font-serif);
+  margin: 0;
+  overflow: hidden; /* App feels like a game */
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+h1, h2, h3, h4, h5, h6, .font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Atmospheric noise / dust utility */
+.bg-noise {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.action-card {
+  background: rgba(26, 15, 10, 0.8);
+  border: 1px solid var(--color-horror-paper);
+  padding: 16px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.rune-text {
+  font-family: var(--font-sans);
+  color: var(--color-horror-cyan);
+  font-size: 10px;
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+
+/* Custom Scrollbar for list areas */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-horror-bg); 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-horror-wood); 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-horror-blood); 
+}
+
+
