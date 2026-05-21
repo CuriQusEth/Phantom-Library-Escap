@@ -8,6 +8,18 @@ async function startServer() {
 
   app.use(express.json());
 
+  // CORS Middleware for external agents/MCP tests
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    if (req.method === 'OPTIONS') {
+      res.sendStatus(200);
+      return;
+    }
+    next();
+  });
+
   // API - Agent Info
   app.get("/api/agent", (req, res) => {
     res.json({

@@ -36,7 +36,26 @@
     "data-retrieval",
     "mcp-command-execution"
   ],
-  "supportedChains": ["eip155:8453"],
+  "skills": [
+    {
+      "id": "skill-phantom-explore",
+      "name": "Phantom Exploration",
+      "description": "Navigate and map the shifting architectures of the Phantom Library."
+    },
+    {
+      "id": "skill-knowledge-escape",
+      "name": "Knowledge Escaping",
+      "description": "Extract logic and text from cursed tomes."
+    },
+    {
+      "id": "skill-hidden-content",
+      "name": "Hidden Content Discovery",
+      "description": "Find and decode lost pages and arcane secrets."
+    }
+  ],
+  "supportedChains": [
+    "eip155:8453"
+  ],
   "active": true,
   "status": "online"
 }
