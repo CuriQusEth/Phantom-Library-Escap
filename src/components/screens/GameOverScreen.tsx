@@ -1,12 +1,15 @@
 import { motion } from 'framer-motion';
 import { useGameStore, GameScreen } from '../../store/gameStore';
 import { useAccount, useSignMessage } from 'wagmi';
-import { Skull, Eye } from 'lucide-react';
+import { Skull, Eye, Sun } from 'lucide-react';
+import { sendGMTransaction } from '../../lib/erc8021/transaction';
+import { useState } from 'react';
 
 export default function GameOverScreen({ type }: { type: GameScreen }) {
   const { resetGame, roomLevel, secretsDiscovered } = useGameStore();
   const { isConnected, address } = useAccount();
   const { signMessage, isSuccess } = useSignMessage();
+  const [isGMSending, setIsGMSending] = useState(false);
 
   const isConsumed = type === 'CONSUMED';
   const title = isConsumed ? "Consumed By The Dark" : "You Escaped";
@@ -23,6 +26,20 @@ export default function GameOverScreen({ type }: { type: GameScreen }) {
          account: address,
          message: `I reached Floor ${roomLevel} and found ${secretsDiscovered.length} secrets in the Phantom Library.`
      });
+  };
+
+  const handleGM = async () => {
+    if (!isConnected || !address) return;
+    try {
+      setIsGMSending(true);
+      await sendGMTransaction(address);
+      alert("GM sent to the void!");
+    } catch (e) {
+      console.error(e);
+      alert("Failed to send GM.");
+    } finally {
+      setIsGMSending(false);
+    }
   };
 
   return (
@@ -71,6 +88,17 @@ export default function GameOverScreen({ type }: { type: GameScreen }) {
         >
           {isSuccess ? 'Record Sealed' : 'Record This Nightmare On-Chain'}
         </button>
+
+        {isConnected && (
+            <button
+                onClick={handleGM}
+                disabled={isGMSending}
+                className="px-3 py-2 rounded-lg bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center justify-center gap-2 font-['Cinzel'] text-xs font-bold w-full mb-4"
+            >
+                <Sun className="w-4 h-4" />
+                {isGMSending ? 'Saying GM...' : 'Say GM'}
+            </button>
+        )}
 
         <button 
             onClick={resetGame}
