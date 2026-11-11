@@ -25,8 +25,8 @@ export async function sendGMTransaction(account: `0x${string}`) {
             account,
             to: CONTRACT_ADDRESS,
             value: parseEther('0'), // Sending 0 ETH, just data
-            data: `0x${hexData}`,
-        });
+            data: `0x${hexData}` as `0x${string}`,
+        } as any);
 
         console.log("Tx Hash:", hash);
         return hash;
